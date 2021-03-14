@@ -1,12 +1,4 @@
 
-
-
-		//Store information about your firebase so we can connect
-		
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//IMPORTANT: REPLACE THESE WITH YOUR VALUES (these ones won't work)
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 		var config = {
 			apiKey: "AIzaSyCMJ4Lmv_h1VTFgsjsrGe4gshz9EZ1zGeM",
 			authDomain: "poemshare-c773d.firebaseapp.com",
@@ -18,10 +10,7 @@
 			measurementId: "G-9K4BT4ZGP0"
 		};
 		
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-		//initialize your firebase
 		firebase.initializeApp(config);
 
 		firebase.auth().onAuthStateChanged(function(user) 
@@ -45,13 +34,10 @@
 			
 			var modal = document.getElementById("myModal");
 
-			// Get the button that opens the modal
 			var btn = document.getElementById("myBtn");
 
-			// Get the <span> element that closes the modal
 			var span = document.getElementsByClassName("close")[0];
 
-			// When the user clicks the button, open the modal 
 			btn.onclick = function() {
 				var user = firebase.auth().currentUser;
 			if (!user){
@@ -61,12 +47,10 @@
 			  modal.style.display = "block";
 			}
 
-			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modal.style.display = "none";
 			}
 
-			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
 			  if (event.target == modal) {
 			    modal.style.display = "none";
@@ -95,32 +79,27 @@
 
 		var database = firebase.database();
 		
-		//create a variable to hold our orders list from firebase
 		var firebasePoemsCollection = database.ref().child('poems');
-		//this function is called when the submit button is clicked
 		function submitPoem() {
 			
 
-			//Grab order data from the form
 			if (document.getElementById('poemName').value.length==0 || quill.root==0){
 				alert("Please don't leave any blanks!")
 				return false
 			}
 			var poem = {
-				title: document.getElementById('poemName').value, //another way you could write is $('#myForm [name="fullname"]').
+				title: document.getElementById('poemName').value, 
 				notes: quill.root.innerHTML,
 				poetName: userName,
 				likes: 0,
 				time: timeStamp(),
 				poetID: uidKey,
 
-				//another way you could write is $('#myForm [name="fullname"]').
 			};
 			document.getElementById('poemName').value = ""
 			quill.setContents([{ insert: '\n' }]);
 			modal.style.display = "none";
-			//'push' (aka add) your order to the existing list
-			firebasePoemsCollection.push(poem); //'orders' is the name of the 'collection' (aka database table)
+			firebasePoemsCollection.push(poem); 
 			
 		};
 
@@ -168,8 +147,7 @@
 					{
 					comment: reportReason,
 					author: userName,
-					userID: uidKey, //another way you could write is $('#myForm [name="fullname"]').
-					//another way you could write is $('#myForm [name="fullname"]').
+					userID: uidKey, 
 					};
 			    	indiRef.push(reportContentWAuthor);
 			    	return true
@@ -216,18 +194,15 @@
 			var commentContentWAuthor = {
 				comment: document.getElementById("comment"+key).value,
 				author: userName,
-				time: timeStamp(),//another way you could write is $('#myForm [name="fullname"]').
-				//another way you could write is $('#myForm [name="fullname"]').
+				time: timeStamp(),
 			};
 			var commentContent = {
 				comment: document.getElementById("comment"+key).value,
-				time: timeStamp(), //another way you could write is $('#myForm [name="fullname"]').
-				//another way you could write is $('#myForm [name="fullname"]').
+				time: timeStamp(), 
 			};
 
-			//'push' (aka add) your order to the existing list
 			refUser.push(commentContent);
-			refCounter.push(commentContentWAuthor); //'orders' is the name o
+			refCounter.push(commentContentWAuthor); 
 			document.getElementById("comment"+key).value = '';
 
 		}
@@ -245,25 +220,7 @@
 				})
 
 
-				/*comments.forEach(function (eachComment){
-					var commentValue = eachComment.val()
-					var comments = document.getElementById("comments"+key);
-					var node = document.createElement("LI");
-					var textnode = document.createTextNode(commentValue.author + " says " + commentValue.comment);
-  					var textnodeText = document.createTextNode(commentValue.author + " says " + commentValue.comment);
-  					node.appendChild(textnode);
-  					comments.appendChild(node);*/
-
-				/*console.log(ref)
-				function addComment(name, comment) {
-				  var comments = document.getElementById("comments"+key);
-				  comments.innerHTML = "<hr><h4>" + name + " says<span></span></h4><p>" + comment + "</p>";
-				}
-				ref.once("value", function(snapshot) {
-				  var comment = snapshot.val();
-				  console.log(comment.author + comment.comment)
-				  addComment(comment.author, comment.comment);
-				});*/
+				
 			});
 			
 		}
@@ -291,25 +248,17 @@
 				firebase.auth()
 			  .signInWithPopup(provider)
 			  .then((result) => {
-			    /** @type {firebase.auth.OAuthCredential} */
 			    var credential = result.credential;
 
-			    // This gives you a Google Access Token. You can use it to access the Google API.
 			    var token = credential.accessToken;
-			    // The signed-in user info.
 			    var user = result.user;
-			    // ...
 			    location.reload();
 
 			  }).catch((error) => {
-			    // Handle Errors here.
 			    var errorCode = error.code;
 			    var errorMessage = error.message;
-			    // The email of the user's account used.
 			    var email = error.email;
-			    // The firebase.auth.AuthCredential type that was used.
 			    var credential = error.credential;
-			    // ...
 			  }); 
 			}
 		function signOut() 
@@ -341,23 +290,16 @@
 			}
 		}
 		
-		//create a 'listener's which waits for changes to the values inside the firebaseOrdersCollection 
 		firebasePoemsCollection.on('value',function(poems){
 		
 
 
-			//create an empty string that will hold our new HTML
 			var allPoemsHtml = "";
 			
 
-			//this is saying foreach order do the following function...
 			poems.forEach(function(firebasePoemReference){
 				
-				//this gets the actual data (JSON) for the order.
-				var poem = firebasePoemReference.val(); //could be order //check your console to see it!
-				//create html for the individual order
-				//note: this is hard to make look pretty! Be sure to keep your indents nice :-)
-				//IMPORTANT: we use ` here instead of ' (notice the difference?) That allows us to use enters
+				var poem = firebasePoemReference.val(); 
 				function checkIfMine(){
 					var user = firebase.auth().currentUser;
 					if (!user){
@@ -405,16 +347,13 @@
 
 		
 				
-				//add the individual order html to the end of the allOrdersHtml list
 				allPoemsHtml = allPoemsHtml + individialPoemHtml;
 			});
 			if(allPoemsHtml.length==0){
 				allPoemsHtml = "<h4 style='font-family: DM Mono, monospace !important;'>There are currently no poems posted.</h4>"
 			}
-			//actaull put the html on the page inside the element with the id PreviousOrders
 			$('#previousPoems').html(allPoemsHtml);
 			
-			//note: an alternative approach would be to create a hidden html element for one order on the page, duplicate it in the forEach loop, unhide it, and replace the information, and add it back. 
 		});
 	
 
