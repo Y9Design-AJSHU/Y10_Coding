@@ -44,7 +44,6 @@
 
 #mobileShow{display:none;}
 
-/* Modal Content */
 .modal-content {
   background-color: #fefefe;
   margin: auto;
@@ -53,7 +52,6 @@
   width: 80%;
 }
 
-/* The Close Button */
 .close {
   color: #aaaaaa;
   float: right;
@@ -367,18 +365,13 @@
 					<input type="text" class="form-control" id="poemName">
 				</div>
 
-				<!-- todo: we should add a phone and an email field too so we can contact them back!! -->
-				<!-- This would be almost the same as the fullNameField, you have to change a couple things though, can you see what? -->
-
 				<div class="form-group">
 					<label for="notesField">Please enter your poem: </label>
-					<!-- textarea are like inputs but they're for long text! -->
 						
 							<div id="editor-container" style="font-family: 'DM Mono', monospace !important;background: white;">
 							</div>
 				</div>
 
-				<!-- it's important NOT to use <button> here because that will do something els (that's why we use <a> and make it look like a button using css -->
 				<a class="btn btn-default" id="submitButton" onclick="submitPoem()">Submit Poem</a>
 			</form>
 		</div>
@@ -386,23 +379,18 @@
 		<div>
 			<h1 style="font-family: 'DM Mono', monospace !important;"><b>Poems</b></h1><br>
 			<div id="previousPoems" class="ql-viewer">
-				<!-- We will use javascript to insert html for the orders list here -->
-				<!-- if you don't want orders to show on the homepage, you can duplicate the page and remove this from here, leave the other one with a werid name so only you can find it -->
 			</div>
 		</div>
 
 	</div>
 
-	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-	<!-- Bootstrap JS -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
 	<script src="main.js"></script>
 	<script>
-// Get the modal
 
 </script>
 
